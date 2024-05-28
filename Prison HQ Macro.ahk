@@ -1,6 +1,6 @@
 ; Prison HQ Auto Break Chest & Hatch Best Egg
 ; Created by @raeleii on Discord
-; Last updated on 4:41 pm GMT + 8, 5/28/24 
+; Last updated on 5:32 pm GMT + 8, 5/28/24 
 ; Srsly i'm tired of making this macro a gui, unless this prison event is permanent.
 
 ; Requirements to use this macro
@@ -8,6 +8,11 @@
 
 #Requires AutoHotkey v2.0
 #SingleInstance
+
+; Function keys to start/pause/exit macro
+F3::StartMacro()
+F5::PauseMacro()
+F6::ExitMacro()
 
 ; Delays, in seconds (can accept decimals)
 DelayModifier := 1.05
@@ -66,7 +71,7 @@ CoordsMap["VoidWorld"] := [383, 587]
    (Tip: Use Window Spy from AHK to get the pixel color of the coordinates)
    If you adjust the value in CoordsPixelFlag["FlagInLastArea"], also change the value in line 555 of this code.
    Example: line 72 is CoordsPixelFlag["FlagInLastArea"] := "Shiny Flag"
-   Go to line 565 and change also this:
+   Go to line 570 and change also this:
        if Activate == (CoordsPixelFlag["Hasty Flag"]) {
                                              ^ 
                        Change this also to Shiny Flag and save it. */
@@ -98,14 +103,14 @@ CoordsPixelFruit["Rainbow Fruit"] := "0xC4EE67"
 DeepLinkRun := false
 LastFunction := ""
 
-$F5:: { ; Pause the macro
+PauseMacro() { ; Pause the macro
     global DelayModifier
     Sleep (100 * DelayModifier) 
     Send "{F11}"
     Pause -1
 }
 
-$F6:: { ; Exit the macro
+ExitMacro() { ; Exit the macro
     if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
         WinActivate()
         Send "{F11}"
@@ -116,8 +121,8 @@ $F6:: { ; Exit the macro
     }
 }
 
-$F3:: { ; Start the macro
-    global DelayModifier, AutoHatchEgg
+StartMacro() { ; Start the macro
+    global DelayModifier
     if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
         WinActivate()
         Send "{F11}"
