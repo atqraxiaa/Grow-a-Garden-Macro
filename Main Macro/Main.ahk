@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                   Pet Simulator 99 Main Macro (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                          Created by @raeleii on Discord, last updated on 22:25 GMT + 8, 5/31/24 
+;                          Created by @raeleii on Discord, last updated on 22:31 GMT + 8, 5/31/24 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -151,7 +151,7 @@ LastChosenSwitch := ""
 
 MyGui := Gui(, "Pet Simulator 99 Macro")
 MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 22:25 GMT + 8, 5/31/24")
+MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 22:31 GMT + 8, 5/31/24")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
 MyGui.Add("Text",, "Choose a option:")
 MyGui.Add("Edit", "vOption")
@@ -177,12 +177,11 @@ ProcessUserInput(*) {
             MsgBox("You selected Drop & Grind. The macro will now start.")
             LastChosenSwitch := 2
             CheckRobloxWindow()
-            ; StupidLeaderboard()
-            ; ClaimFreeGifts()
-            ; AutoEatFruit()
-            ; GoToLastArea()
-            ; CheckAutoFarmCase2()
-            UseItemLastArea()
+            StupidLeaderboard()
+            ClaimFreeGifts()
+            AutoEatFruit()
+            GoToLastArea()
+            CheckAutoFarmCase2()
         Case 3:
             MsgBox("You selected Grind Last Area. The macro will now start.")
             LastChosenSwitch := 3
@@ -196,10 +195,6 @@ ProcessUserInput(*) {
             MsgBox("Waiting for more vendings to release on World 3. Exiting macro.")
             LastChosenSwitch := 4
             ExitApp
-            ; CheckRobloxWindow()
-            ; StupidLeaderboard()
-            ; ClaimFreeGifts()
-            ; AutoEatFruit()
         Case 5:
             MsgBox("You selected Auto Craft Keys. The macro will now start.")
             LastChosenSwitch := 5
