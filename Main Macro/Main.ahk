@@ -146,7 +146,7 @@ DeepLinkRun := false
 LastFunction := ""
 LastChosenSwitch := ""
 
-MyGui := Gui(, "test gui")
+MyGui := Gui(, "Pet Simulator 99 Macro")
 MyGui.Opt("+AlwaysOnTop -SysMenu +Owner")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Closed)`n5) Auto Craft Keys")
 MyGui.Add("Text",, "Choose a option:")
