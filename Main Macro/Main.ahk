@@ -1,7 +1,7 @@
 ; Pet Simulator 99 Main Macro (Auto Hatch, Auto Farm, Auto Eat Fruit, Auto Place Flag)
 ; Ported from Prison HQ Macro
 ; Created by @raeleii on Discord
-; Last updated on 17:54 GMT + 8, 5/31/24 
+; Last updated on 20:09 GMT + 8, 5/31/24 
 
 ; Requirements to use this macro
 ; 1920 x 1080 resolution, 100% scale
@@ -79,20 +79,18 @@ CoordsMap["TpButton"] := [174, 389]
 CoordsMap["SearchWindow"] := [1274, 248]
 CoordsMap["TpLastAreaButton"] := [959, 356]
 CoordsMap["EnableHoverboard"] := [270, 377]
-CoordsMap["EnableAutoFarm"] := [194, 460]
-CoordsMap["OpenEggSettings"] := [87, 460]
 CoordsMap["ToggleAutoHatch"] := [1155, 395]
 CoordsMap["OpenEggSettingsExit"] := [1299, 256]
 CoordsMap["MenuExit"] := [1492, 253]
 CoordsMap["HatchAllEgg"] := [1199, 735]
 CoordsMap["BreakChest"] := [308, 578]
-CoordsMap["CheckDisconnectUI"] := [1109, 566]
 CoordsMap["ReconnectButton"] := [1056, 620]
 CoordsMap["MenuButton"] := [965, 961]
 CoordsMap["BackpackButton"] := [387, 402]
 CoordsMap["UseUltimate"] := [585, 957]
 CoordsMap["VoidWorld"] := [383, 587]
-CoordsMap["FirstItemLocation"] := [501, 410]
+CoordsMap["CraftOneKeyButton"] := [670, 739]
+CoordsMap["OkayButtonCraftKeys"] := [957, 733]
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                   Map Coordinates / Hex Codes for Fruits (Customizable)
@@ -123,6 +121,22 @@ CoordsPixelFruit["Banana"] := "0xBFFFA8"
 CoordsPixelFruit["Orange"] := "0xF89C00"
 CoordsPixelFruit["Watermelon"] := "0xF0236E"
 CoordsPixelFruit["Rainbow Fruit"] := "0xC4EE67"
+
+; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+;                                  Map Coordinates / Hex Codes for Other Items (Customizable)
+; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+
+CoordsOtherItems := Map()
+CoordsOtherItems["CheckDisconnectUI"] := [1109, 566]
+CoordsOtherItems["DisconnectUI"] := "0x393B3D" 
+CoordsOtherItems["EnableAutoFarm"] := [194, 460]
+CoordsOtherItems["AutoFarmEnabled"] := "0x7CF50C"
+CoordsOtherItems["OpenEggSettings"] := [87, 460]
+CoordsOtherItems["AutoHatchEnabled"] := "0x7CF50C"
+CoordsOtherItems["FirstItemLocation"] := [501, 410]
+CoordsOtherItems["CrystalKeyPixel"] := "0x7CF50C"
+CoordsOtherItems["TechKeyPixel"] := "0xA0C5DD"
+CoordsOtherItems["NoItemBackpack"] := "0xFFFFFF"
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                         Main GUI
@@ -185,7 +199,9 @@ ProcessUserInput(*) {
             MsgBox("You selected Auto Craft Keys. The macro will now start.")
             LastChosenSwitch := 5
             CheckRobloxWindow()
-            StupidLeaderboard()
+            ; StupidLeaderboard()
+            ; CraftCrystalKeys()
+            CraftCrystalKeys()
         Default:
             MsgBox "The selected option is not recognized. Exiting macro."
             ExitApp
@@ -216,12 +232,12 @@ StupidLeaderboard() {
 
 ClaimFreeGifts() { ; Claim free gifts when macro is starting or reconnects
     global DelayModifier, DeepLink, DeeplinkRun
-    SendEvent "{Click, " CoordsMap["CheckDisconnectUI"][1] ", " CoordsMap["CheckDisconnectUI"][2] "}"
+    SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (0x393B3D) { ; If disconnect UI shows the color bg
+        if Activate == (CoordsOtherItems["CheckDisconnectUI"]) { ; If disconnect UI shows the color bg
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -288,7 +304,7 @@ AutoEatApple() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -329,7 +345,7 @@ AutoEatPineapple() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -370,7 +386,7 @@ AutoEatBanana() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -411,7 +427,7 @@ AutoEatOrange() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -452,7 +468,7 @@ AutoEatWatermelon() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -493,7 +509,7 @@ AutoEatRainbowFruit() {
         X := CoordsPixelFruit["FruitPixelSearch"][1]
         Y := CoordsPixelFruit["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -534,7 +550,7 @@ AutoPlaceFlag() {
         X := CoordsPixelFlag["FlagPixelSearch"][1]
         Y := CoordsPixelFlag["FlagPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (500 * DelayModifier)
+        Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
@@ -596,14 +612,14 @@ CheckAutoFarmCase1() {
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsMap["EnableAutoFarm"][1]
-    Y := CoordsMap["EnableAutoFarm"][2]
+    X := CoordsOtherItems["EnableAutoFarm"][1]
+    Y := CoordsOtherItems["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
     Activate := PixelGetColor(MouseX, MouseY, )
 
-    if (Activate == 0x7CF50C) { ; If autofarm is enabled 
+    if (Activate == CoordsOtherItems["AutoFarmEnabled"]) { ; If autofarm is enabled 
         Sleep(1000 * DelayModifier)
         AutoPlaceFlag()
         Sleep(1000 * DelayModifier)
@@ -621,14 +637,14 @@ CheckAutoFarmCase1() {
 CheckEggAutoHatch() {
     global DelayModifier
 
-    X := CoordsMap["OpenEggSettings"][1]
-    Y := CoordsMap["OpenEggSettings"][2]
+    X := CoordsOtherItems["OpenEggSettings"][1]
+    Y := CoordsOtherItems["OpenEggSettings"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
     Activate := PixelGetColor(MouseX, MouseY, )
 
-    if Activate == (0x7CF50C) { ; If autohatch is enabled
+    if Activate == (CoordsOtherItems["AutoHatchEnabled"]) { ; If autohatch is enabled
         GoToEggHatch()
     } else { ; If autohatch is disabled
         SendEvent "{Click}"
@@ -680,12 +696,12 @@ HatchBestEgg() {
         Loop UltimateLoopClick {
             SendEvent "{Click, " CoordsMap["UseUltimate"][1] ", " CoordsMap["UseUltimate"][2] "}"
         }
-        SendEvent "{Click, " CoordsMap["CheckDisconnectUI"][1] ", " CoordsMap["CheckDisconnectUI"][2] "}"
+        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (0x393B3D) { ; If disconnect UI shows the color bg
+        if Activate == (CoordsOtherItems["CheckDisconnectUI"]) { ; If disconnect UI shows the color bg
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -729,14 +745,14 @@ CheckAutoFarmCase2() {
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsMap["EnableAutoFarm"][1]
-    Y := CoordsMap["EnableAutoFarm"][2]
+    X := CoordsOtherItems["EnableAutoFarm"][1]
+    Y := CoordsOtherItems["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
     Activate := PixelGetColor(MouseX, MouseY, )
 
-    if (Activate == 0x7CF50C) { ; If autofarm is enabled 
+    if (Activate == CoordsOtherItems["AutoFarmEnabled"]) { ; If autofarm is enabled 
         Sleep(1000 * DelayModifier)
         AutoPlaceFlag()
         Sleep(1000 * DelayModifier)
@@ -770,7 +786,7 @@ UseItemLastArea() {
             Sleep (500 * DelayModifier)
             SendText CoordsItemUse["UseItem"]
             Sleep (500 * DelayModifier)
-            SendEvent "{Click, " CoordsMap["FirstItemLocation"][1] ", " CoordsMap["FirstItemLocation"][2] "}"
+            SendEvent "{Click, " CoordsOtherItems["FirstItemLocation"][1] ", " CoordsOtherItems["FirstItemLocation"][2] "}"
             Sleep (500 * DelayModifier) 
             SendEvent "{Click, " CoordsMap["OpenEggSettingsExit"][1] ", " CoordsMap["OpenEggSettingsExit"][2] "}"
             Sleep (250 * DelayModifier) 
@@ -782,12 +798,12 @@ UseItemLastArea() {
 
         counter++
 
-        SendEvent "{Click, " CoordsMap["CheckDisconnectUI"][1] ", " CoordsMap["CheckDisconnectUI"][2] "}"
+        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (0x393B3D) { ; If disconnect UI shows the color bg
+        if Activate == (CoordsOtherItems["CheckDisconnectUI"]) { ; If disconnect UI shows the color bg
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -822,14 +838,14 @@ CheckAutoFarmCase3() {
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsMap["EnableAutoFarm"][1]
-    Y := CoordsMap["EnableAutoFarm"][2]
+    X := CoordsOtherItems["EnableAutoFarm"][1]
+    Y := CoordsOtherItems["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
     Activate := PixelGetColor(MouseX, MouseY, )
 
-    if (Activate == 0x7CF50C) { ; If autofarm is enabled 
+    if (Activate == CoordsOtherItems["AutoFarmEnabled"]) { ; If autofarm is enabled 
         Sleep(1000 * DelayModifier)
         AutoPlaceFlag()
         Sleep(1000 * DelayModifier)
@@ -853,12 +869,12 @@ UseUltimateAndReconnect() {
         Loop UltimateLoopClick {
             SendEvent "{Click, " CoordsMap["UseUltimate"][1] ", " CoordsMap["UseUltimate"][2] "}"
         }
-        SendEvent "{Click, " CoordsMap["CheckDisconnectUI"][1] ", " CoordsMap["CheckDisconnectUI"][2] "}"
+        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (0x393B3D) { ; If disconnect UI shows the color bg
+        if Activate == (CoordsOtherItems["CheckDisconnectUI"]) { ; If disconnect UI shows the color bg
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -893,6 +909,89 @@ AutoEatFruitTimerCase3() {
 ;                                                  Auto Craft Keys (Case 5)
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
+CraftCrystalKeys() {
+    global DelayModifier
+
+    SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+    Sleep (500 * DelayModifier)
+    SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+    Sleep (500 * DelayModifier)
+
+    while (true) {
+        SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+        Sleep (500 * DelayModifier)
+        SendText "Crystal Key: Upper Half"
+        Sleep (250 * DelayModifier)
+
+        X := CoordsOtherItems["FirstItemLocation"][1]
+        Y := CoordsOtherItems["FirstItemLocation"][2]
+        SendEvent "{Click, " X ", " Y ", Right}"
+        Sleep (100 * DelayModifier)
+        MouseGetPos &MouseX, &MouseY
+        Activate := PixelGetColor(MouseX, MouseY, )
+    
+        if (Activate == CoordsOtherItems["CrystalKeyPixel"]) { 
+            SendEvent "{Click}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["CraftOneKeyButton"][1] ", " CoordsMap["CraftOneKeyButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["OkayButtonCraftKeys"][1] ", " CoordsMap["OkayButtonCraftKeys"][2] "}"
+            Sleep (700 * DelayModifier)
+            continue
+        } else if (Activate == CoordsOtherItems["NoItemBackpack"]) {
+            SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+            break
+        } else {
+            SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            continue
+        }
+    }
+}
+
+CraftTechKeys() {
+    global DelayModifier
+
+    SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+    Sleep (500 * DelayModifier)
+    SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+    Sleep (500 * DelayModifier)
+
+    while (true) {
+        SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+        Sleep (500 * DelayModifier)
+        SendText "Tech Key: Upper Half"
+        Sleep (250 * DelayModifier)
+
+        X := CoordsOtherItems["FirstItemLocation"][1]
+        Y := CoordsOtherItems["FirstItemLocation"][2]
+        SendEvent "{Click, " X ", " Y ", Right}"
+        Sleep (100 * DelayModifier)
+        MouseGetPos &MouseX, &MouseY
+        Activate := PixelGetColor(MouseX, MouseY, )
+    
+        if (Activate == CoordsOtherItems["TechKeyPixel"]) {
+            SendEvent "{Click}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["CraftOneKeyButton"][1] ", " CoordsMap["CraftOneKeyButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["OkayButtonCraftKeys"][1] ", " CoordsMap["OkayButtonCraftKeys"][2] "}"
+            Sleep (700 * DelayModifier)
+            continue
+        } else if (Activate == CoordsOtherItems["NoItemBackpack"]) {
+            SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+            break
+        } else {
+            SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+            Sleep (350 * DelayModifier)
+            continue
+        }
+    }
+}
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                     Restart Functions
