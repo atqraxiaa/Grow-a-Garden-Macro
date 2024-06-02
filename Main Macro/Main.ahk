@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                   Pet Simulator 99 Main Macro (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                          Created by @raeleii on Discord, last updated on 22:31 GMT + 8, 5/31/24 
+;                          Created by @raeleii on Discord, last updated on 22:15 GMT + 8, 6/2/24 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -31,11 +31,12 @@ ReconnectionDelay := 120
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 MoveLastArea := 0.7
-MoveToBestEggSideward := 4
-MoveToBestEggForward := 0.9
+MoveToBestEggForward := 0.175
+MoveToBestEggSideward := 1.1
 MoveDisableHatchEgg := 3
 TimerDuration := 10800
 ItemCooldown := 7
+
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                     Click Iterations 
@@ -151,7 +152,7 @@ LastChosenSwitch := ""
 
 MyGui := Gui(, "Pet Simulator 99 Macro")
 MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 22:31 GMT + 8, 5/31/24")
+MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 22:15 GMT + 8, 6/2/24")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
 MyGui.Add("Text",, "Choose a option:")
 MyGui.Add("Edit", "vOption")
@@ -580,15 +581,15 @@ GoToLastArea() {
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
     Sleep (500 * DelayModifier)
-    SendText "Prison HQ"
+    SendText "Volcano Island"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
     Sleep (TpToLastArea * 1000)
     SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
     Sleep (1000 * DelayModifier)
-    Send ("{D down}")
+    Send ("{A down}")
     Sleep (MoveLastArea * 1000)
-    Send ("{D up}")
+    Send ("{A up}")
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
     Sleep (500 * DelayModifier)
@@ -662,15 +663,14 @@ GoToEggHatch() {
     Send ("{I down}")
     Sleep (400)
     Send ("{I up}")
-    Sleep (250 * DelayModifier)
-    SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
-    Sleep (500 * DelayModifier)
-    SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
-    Sleep (500 * DelayModifier)
-    SendText "Prison Tower"
-    Sleep (500 * DelayModifier)
-    SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
-    Sleep (TpToLastArea * 1000)
+    Sleep (1000 * DelayModifier)
+    Send ("{W down}")
+    Sleep (MoveToBestEggForward * 1000)
+    Send ("{W up}")
+    Sleep (1000 * DelayModifier)
+    Send ("{A down}")
+    Sleep (MoveToBestEggSideward * 1000)
+    Send ("{A up}")
     HatchBestEgg()
 }
 
@@ -678,14 +678,7 @@ HatchBestEgg() {
     global DeepLink, DeepLinkRun, ReconnectionDelay, LastFunction, TimerDuration, DelayModifier, UltimateLoopClick
     LastFunction := "HatchBestEgg"
 
-    Send ("{A down}")
-    Sleep (MoveToBestEggSideward * 1000)
-    Send ("{A up}")
     Sleep (1000 * DelayModifier)
-    Send ("{W down}")
-    Sleep (MoveToBestEggForward * 1000)
-    Send ("{W up}")
-    Sleep (500 * DelayModifier)
     Send ("{E}")
     Sleep (250 * DelayModifier)
     SendEvent "{Click, " CoordsMap["HatchAllEgg"][1] ", " CoordsMap["HatchAllEgg"][2] "}"
