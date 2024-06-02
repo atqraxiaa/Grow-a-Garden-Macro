@@ -1,6 +1,8 @@
+#Requires AutoHotkey v2.0
+
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                   Pet Simulator 99 Main Macro (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                          Created by @raeleii on Discord, last updated on 22:15 GMT + 8, 6/2/24 
+;                Pet Simulator 99 Main Macro v1.1b (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
+;                          Created by @raeleii on Discord, last updated on 23:29 GMT + 8, 6/2/24 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -150,16 +152,17 @@ DeepLinkRun := false
 LastFunction := ""
 LastChosenSwitch := ""
 
-MyGui := Gui(, "Pet Simulator 99 Macro")
+MyGui := Gui(, "Pet Sim 99 Macro v1.1b")
 MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 22:15 GMT + 8, 6/2/24")
+MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 23:29 GMT + 8, 6/2/24")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
-MyGui.Add("Text",, "Choose a option:")
-MyGui.Add("Edit", "vOption")
-MyGui.Add("Button", "default", "OK").OnEvent("Click", ProcessUserInput)
+MyGui.Add("Text",, "Update Logs:`n6/2/24 v1.1: Updated macro to support new areas`n6/2/24 v1.1a: Fixed Auto Craft Keys case functions`n6/2/24 v1.1b: Updated GUI to be more understandable")
+MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 5.")
+MyGui.Add("Edit", "vOption w240 xm")
+MyGui.Add("Button", "default x+10", "OK").OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
 MyGui.Show("NoActivate")
-MyGui.Show("w300 h200")
+MyGui.Show
 
 ProcessUserInput(*) {
     global LastChosenSwitch
@@ -202,7 +205,7 @@ ProcessUserInput(*) {
             CheckRobloxWindow()
             StupidLeaderboard()
             CraftCrystalKeys()
-            CraftCrystalKeys()
+            CraftTechKeys()
         Default:
             MsgBox "The selected option is not recognized. Exiting macro."
             ExitApp
@@ -659,7 +662,7 @@ CheckEggAutoHatch() {
 }
 
 GoToEggHatch() {
-    global TpToLastArea, DelayModifier
+    global TpToLastArea, DelayModifier, MoveToBestEggForward, MoveToBestEggSideward
     Send ("{I down}")
     Sleep (400)
     Send ("{I up}")
