@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                Pet Simulator 99 Main Macro v1.1c (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                        Created by @raeleii on Discord, last updated on 20:48 GMT + 8, Jun 5, 2024 
+;                Pet Simulator 99 Main Macro v1.1d (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
+;                        Created by @raeleii on Discord, last updated on 23:24 GMT + 8, 05/06/2024 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -22,49 +22,50 @@ F12::ExitMacro()
 ;                                          Delays, in seconds (can accept decimals)
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-DelayModifier := 1
-TpToLastArea := 10
-ReconnectionDelay := 120
+DelayModifier := IniRead("Settings.ini", "Delays", "DelayModifier")
+TpToLastArea := IniRead("Settings.ini", "Delays", "TpToLastArea")
+ReconnectionDelay := IniRead("Settings.ini", "Delays", "ReconnectionDelay")
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                         Durations, in seconds (can accept decimals)
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-MoveLastArea := 0.7
-MoveToBestEggForward := 0.175
-MoveToBestEggSideward := 1.1
-MoveDisableHatchEgg := 3
-TimerDuration := 10800
-ItemCooldown := 7
+MoveLastArea := IniRead("Settings.ini", "Durations", "MoveLastArea")
+MoveToBestEggForward := IniRead("Settings.ini", "Durations", "MoveToBestEggForward")
+MoveToBestEggSideward := IniRead("Settings.ini", "Durations", "MoveToBestEggSideward")
+MoveDisableHatchEgg := IniRead("Settings.ini", "Durations", "MoveDisableHatchEgg")
+TimerDuration := IniRead("Settings.ini", "Durations", "TimerDuration")
+ItemCooldown := IniRead("Settings.ini", "Durations", "ItemCooldown")
 
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                     Click Iterations 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-UltimateLoopClick := 250
-FruitLoopClick := 100
-FlagLoopClick := 100
+UltimateLoopClick := IniRead("Settings.ini", "ClickLoops", "UltimateLoopClick")
+FruitLoopClick := IniRead("Settings.ini", "ClickLoops", "FruitLoopClick")
+FlagLoopClick := IniRead("Settings.ini", "ClickLoops", "FlagLoopClick")
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                 Cycle / Repeat Functions
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-UseItemCycles := 100
+UseItemCycles := IniRead("Settings.ini", "RepeatFunctions", "UseItemCycles")
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                           Reconnect via Private Server Deeplink
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-DeepLink := ""
-AutoOpenRoblox := false
+DeepLink := IniRead("Settings.ini", "ReconnectSettings", "Deeplink")
+AutoOpenRoblox := IniRead("Settings.ini", "ReconnectSettings", "AutoOpenRoblox")
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                Last Area Item to be Used
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CoordsItemUse := Map()
-CoordsItemUse["UseItem"] := "Party Box"
+CoordsItemUse["UseItem"] := IniRead("Settings.ini", "ItemUse", "UseItemInLastZone")
+CoordsItemUse["FlagInLastArea"] := IniRead("Settings.ini", "ItemUse", "UseFlagInLastZone")
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                              Map Coordinates (Customizable)
@@ -102,7 +103,6 @@ CoordsMap["OkayButtonCraftKeys"] := [957, 733]
 
 CoordsPixelFlag := Map()
 CoordsPixelFlag["FlagPixelSearch"] := [501, 410]
-CoordsPixelFlag["FlagInLastArea"] := "Hasty Flag"
 CoordsPixelFlag["Shiny Flag"] := "0xEEEFFA"
 CoordsPixelFlag["Rainbow Flag"] := "0xFFFFFF"
 CoordsPixelFlag["Fortune Flag"] := "0xC17BF2"
@@ -151,13 +151,13 @@ DeepLinkRun := false
 LastFunction := ""
 LastChosenSwitch := ""
 
-MyGui := Gui(, "Pet Sim 99 Macro v1.1c")
+MyGui := Gui(, "Pet Sim 99 Macro v1.1d")
 MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 20:48 GMT + 8, 6/5/24")
+MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 23:24 GMT + 8, 6/5/24")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
-MyGui.Add("Text",, "Update Logs:`n6/2/24 v1.1: Updated macro to support new areas`n6/2/24 v1.1a: Fixed Auto Craft Keys case functions`n6/2/24 v1.1b: Updated GUI to be more understandable`n6/5/24 v1.1c: Added auto launch roblox when running the macro")
+MyGui.Add("Text",, "Update Logs:`n6/2/24 v1.1: Updated macro to support new areas`n6/2/24 v1.1a: Fixed Auto Craft Keys case functions`n6/2/24 v1.1b: Updated GUI to be more understandable`n6/5/24 v1.1c: Added auto launch roblox when running the macro`n6/5/24 v1.1d: Created Settings.ini file to customize settings easily")
 MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 5.")
-MyGui.Add("Edit", "vOption w240 xm")
+MyGui.Add("Edit", "vOption w270 xm")
 MyGui.Add("Button", "default x+10", "OK").OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
 MyGui.Show("NoActivate")
@@ -215,26 +215,37 @@ ProcessUserInput(*) {
 ;                                                      Main Functions
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-CheckRobloxWindow() { ; Start the macro
+CheckRobloxWindow() { ; Check if the roblox window exists
     global DelayModifier, AutoOpenRoblox, ReconnectionDelay, DeepLink, DeepLinkRun
-    if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
-        WinActivate()
-        Send "{F11}"
-        Sleep (1000 * DelayModifier)
-    } else if (AutoOpenRoblox == true) {
+    if (AutoOpenRoblox == "true") {
         if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
+            WinActivate()
+            Send "{F11}"
+            Sleep (1000 * DelayModifier)
+        } else if !(WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox")) {
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
             run (DeepLink)
             DeepLinkRun := true
             Sleep (ReconnectionDelay * 1000)
+            if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
+                WinActivate()
+                Send "{F11}"
+                Sleep (1000 * DelayModifier)
+            } else {
+                CheckRobloxWindow()
+            }
+        } 
+    } else if (AutoOpenRoblox == "false") {
+        if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
+            WinActivate()
+            Send "{F11}"
+            Sleep (1000 * DelayModifier)
         } else {
-            return
+            MsgBox "Roblox is not running. Exiting script."
+            ExitApp
         }
-    } else if (AutoOpenRoblox == false) {
-        MsgBox "Roblox is not running. Exiting script."
-        ExitApp
     }
 }   
 
@@ -559,7 +570,7 @@ AutoPlaceFlag() {
         Sleep (500 * DelayModifier)
         SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
         Sleep (500 * DelayModifier)
-        SendText CoordsPixelFlag["FlagInLastArea"]
+        SendText CoordsItemUse["FlagInLastArea"]
         Sleep (250 * DelayModifier)
 
         X := CoordsPixelFlag["FlagPixelSearch"][1]
@@ -569,7 +580,7 @@ AutoPlaceFlag() {
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (CoordsPixelFlag["Hasty Flag"]) { ; If flag color pixel is there
+        if Activate == (CoordsPixelFlag["Diamonds Flag"]) { ; If flag color pixel is there
             Loop FlagLoopClick {
                 SendEvent "{Click}"
                 Sleep (50 * DelayModifier)
