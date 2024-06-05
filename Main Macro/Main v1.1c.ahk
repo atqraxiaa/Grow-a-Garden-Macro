@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                Pet Simulator 99 Main Macro v1.1c (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                          Created by @raeleii on Discord, last updated on 20:44 GMT + 8, June 5, 2024 
+;                        Created by @raeleii on Discord, last updated on 20:44 GMT + 8, Jun 5, 2024 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -227,6 +227,7 @@ CheckRobloxWindow() { ; Start the macro
         }
             run (DeepLink)
             DeepLinkRun := true
+            Sleep (ReconnectionDelay * 1000)
     } else if (AutoOpenRoblox == false) {
         MsgBox "Roblox is not running. Exiting script."
         ExitApp
