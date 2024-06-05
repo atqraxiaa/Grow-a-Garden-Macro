@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                Pet Simulator 99 Main Macro v1.1c (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                        Created by @raeleii on Discord, last updated on 20:44 GMT + 8, Jun 5, 2024 
+;                        Created by @raeleii on Discord, last updated on 20:48 GMT + 8, Jun 5, 2024 
 ;
 ;                                              Requirements to Use this Macro:
 ;                                            1920 x 1080 resolution, 100% scale
@@ -57,7 +57,7 @@ UseItemCycles := 100
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 DeepLink := ""
-AutoOpenRoblox := true
+AutoOpenRoblox := false
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                Last Area Item to be Used
@@ -153,7 +153,7 @@ LastChosenSwitch := ""
 
 MyGui := Gui(, "Pet Sim 99 Macro v1.1c")
 MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 20:44 GMT + 8, 6/5/24")
+MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 20:48 GMT + 8, 6/5/24")
 MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
 MyGui.Add("Text",, "Update Logs:`n6/2/24 v1.1: Updated macro to support new areas`n6/2/24 v1.1a: Fixed Auto Craft Keys case functions`n6/2/24 v1.1b: Updated GUI to be more understandable`n6/5/24 v1.1c: Added auto launch roblox when running the macro")
 MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 5.")
@@ -222,12 +222,16 @@ CheckRobloxWindow() { ; Start the macro
         Send "{F11}"
         Sleep (1000 * DelayModifier)
     } else if (AutoOpenRoblox == true) {
-        if (DeepLink == "") {
-            DeepLink := "roblox://placeID=8737899170"
-        }
+        if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
+            if (DeepLink == "") {
+                DeepLink := "roblox://placeID=8737899170"
+            }
             run (DeepLink)
             DeepLinkRun := true
             Sleep (ReconnectionDelay * 1000)
+        } else {
+            return
+        }
     } else if (AutoOpenRoblox == false) {
         MsgBox "Roblox is not running. Exiting script."
         ExitApp
