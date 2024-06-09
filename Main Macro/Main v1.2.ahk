@@ -1,76 +1,76 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                Pet Simulator 99 Main Macro v1.1d (Auto Hatch, Auto Grind, Auto Eat Fruit, Auto Place Flag)
-;                        Created by @raeleii on Discord, last updated on 23:24 GMT + 8, 05/06/2024 
+;                             Pet Simulator 99 Main Macro v1.2, created by @raeleii on Discord
+;                                       Last updated on 18:52 GMT + 8, Jun 9, 2024 
 ;
-;                                              Requirements to Use this Macro:
-;                                            1920 x 1080 resolution, 100% scale
+;                                             Requirements to Use this Macro:
+;                                           1920 x 1080 resolution, 100% scale
 ;
-;                  If you find any bugs, please report to me by sending a dm to @raeleii on Discord, tysm!
+;                   If you find any bugs, please report to me by sending a dm to @raeleii on Discord, tysm!
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 #Requires AutoHotkey v2.0
 #SingleInstance
 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                             Function Keys to Pause/Exit Macro
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
+; Function Keys to Pause / Exit Macro
 F6::PauseMacro()
 F12::ExitMacro()
 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                          Delays, in seconds (can accept decimals)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+; Delays, in seconds (change values in Settings.ini)
+global DelayModifier := IniRead("Settings.ini", "Delays", "DelayModifier")
+global TpToLastArea := IniRead("Settings.ini", "Delays", "TpToLastArea")
+global ReconnectionDelay := IniRead("Settings.ini", "Delays", "ReconnectionDelay")
 
-DelayModifier := IniRead("Settings.ini", "Delays", "DelayModifier")
-TpToLastArea := IniRead("Settings.ini", "Delays", "TpToLastArea")
-ReconnectionDelay := IniRead("Settings.ini", "Delays", "ReconnectionDelay")
+; Durations, in seconds (change values in Settings.ini)
+global MoveLastArea := IniRead("Settings.ini", "Durations", "MoveLastArea")
+global MoveToBestEggForward := IniRead("Settings.ini", "Durations", "MoveToBestEggForward")
+global MoveToBestEggSideward := IniRead("Settings.ini", "Durations", "MoveToBestEggSideward")
+global MoveDisableHatchEgg := IniRead("Settings.ini", "Durations", "MoveDisableHatchEgg")
+global TimerDuration := IniRead("Settings.ini", "Durations", "TimerDuration")
+global ItemCooldown := IniRead("Settings.ini", "Durations", "ItemCooldown")
 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                         Durations, in seconds (can accept decimals)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+; Click Loops (change values in Settings.ini)
+global UltimateLoopClick := IniRead("Settings.ini", "ClickLoops", "UltimateLoopClick")
+global FruitLoopClick := IniRead("Settings.ini", "ClickLoops", "FruitLoopClick")
+global FlagLoopClick := IniRead("Settings.ini", "ClickLoops", "FlagLoopClick")
 
-MoveLastArea := IniRead("Settings.ini", "Durations", "MoveLastArea")
-MoveToBestEggForward := IniRead("Settings.ini", "Durations", "MoveToBestEggForward")
-MoveToBestEggSideward := IniRead("Settings.ini", "Durations", "MoveToBestEggSideward")
-MoveDisableHatchEgg := IniRead("Settings.ini", "Durations", "MoveDisableHatchEgg")
-TimerDuration := IniRead("Settings.ini", "Durations", "TimerDuration")
-ItemCooldown := IniRead("Settings.ini", "Durations", "ItemCooldown")
+; Repeat Functions (change values in Settings.ini)
+global UseItemCycles := IniRead("Settings.ini", "RepeatFunctions", "UseItemCycles")
 
+; Reconnect via Private Server Deeplink (change values in Settings.ini)
+global DeepLink := IniRead("Settings.ini", "ReconnectSettings", "Deeplink")
+global AutoOpenRoblox := IniRead("Settings.ini", "ReconnectSettings", "AutoOpenRoblox")
 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                                     Click Iterations 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+; Current Mastery Level (change values in Settings.ini)
+global FruitMastery99 := IniRead("Settings.ini", "Mastery", "FruitMastery99")
 
-UltimateLoopClick := IniRead("Settings.ini", "ClickLoops", "UltimateLoopClick")
-FruitLoopClick := IniRead("Settings.ini", "ClickLoops", "FruitLoopClick")
-FlagLoopClick := IniRead("Settings.ini", "ClickLoops", "FlagLoopClick")
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                                 Cycle / Repeat Functions
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-UseItemCycles := IniRead("Settings.ini", "RepeatFunctions", "UseItemCycles")
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                           Reconnect via Private Server Deeplink
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-DeepLink := IniRead("Settings.ini", "ReconnectSettings", "Deeplink")
-AutoOpenRoblox := IniRead("Settings.ini", "ReconnectSettings", "AutoOpenRoblox")
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                                Last Area Item to be Used
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
+; Last Area Item / Flag to be Used (change values in Settings.ini)
 CoordsItemUse := Map()
 CoordsItemUse["UseItem"] := IniRead("Settings.ini", "ItemUse", "UseItemInLastZone")
 CoordsItemUse["FlagInLastArea"] := IniRead("Settings.ini", "ItemUse", "UseFlagInLastZone")
+CoordsItemUse["CurrentFlagPixel"] := IniRead("Settings.ini", "ItemUse", "FlagPixelUsedInLastZone")
 
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                              Map Coordinates (Customizable)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+; Hex Codes for Fruits (change values in Settings.ini)
+CoordsPixelFruit := Map()
+CoordsPixelFruit["AllFruits"] := ["Apple", "Pineapple", "Banana", "Orange", "Watermelon", "Rainbow Fruit"]
+CoordsPixelFruit["Apple"] := IniRead("Settings.ini", "HexCodes", "ApplePixel")
+CoordsPixelFruit["Pineapple"] := IniRead("Settings.ini", "HexCodes", "PineapplePixel")
+CoordsPixelFruit["Banana"] := IniRead("Settings.ini", "HexCodes", "BananaPixel")
+CoordsPixelFruit["Orange"] := IniRead("Settings.ini", "HexCodes", "OrangePixel")
+CoordsPixelFruit["Watermelon"] := IniRead("Settings.ini", "HexCodes", "WatermelonPixel")
+CoordsPixelFruit["Rainbow Fruit"] := IniRead("Settings.ini", "HexCodes", "RainbowFruitPixel")
 
+; Hex Codes for Other Items (change values in Settings.ini)
+CoordsOtherItems := Map()
+CoordsOtherItems["DisconnectUI"] := IniRead("Settings.ini", "HexCodes", "DisconnectUIPixel")
+CoordsOtherItems["AutoFarmEnabled"] := IniRead("Settings.ini", "HexCodes", "AutoFarmEnabledPixel")
+CoordsOtherItems["AutoHatchEnabled"] := IniRead("Settings.ini", "HexCodes", "AutoHatchEnabledPixel")
+CoordsOtherItems["CrystalKeyPixel"] := IniRead("Settings.ini", "HexCodes", "CrystalKeyPixel")
+CoordsOtherItems["TechKeyPixel"] := IniRead("Settings.ini", "HexCodes", "TechKeyPixel")
+CoordsOtherItems["PartyBoxPixel"] := IniRead("Settings.ini", "HexCodes", "PartyBoxPixel")
+CoordsOtherItems["NoItemBackpack"] := IniRead("Settings.ini", "HexCodes", "NoItemBackpackPixel")
+CoordsOtherItems["TeleportBgPixel"] := IniRead("Settings.ini", "HexCodes", "TeleportBgPixel")
+
+; Map Coordinates (change values here)
 CoordsMap := Map()
 CoordsMap["OpenFreeGifts"] := [60, 383]
 CoordsMap["OpenFreeGiftsExit"] := [1301, 256]
@@ -82,13 +82,12 @@ CoordsMap["FreeGiftYAdd1"] := [0, 145]
 CoordsMap["FreeGiftYAdd2"] := [0, 290]
 CoordsMap["TpButton"] := [174, 389]
 CoordsMap["SearchWindow"] := [1274, 248]
-CoordsMap["TpLastAreaButton"] := [959, 356]
+CoordsMap["TpLastAreaButton"] := [907, 320]
 CoordsMap["EnableHoverboard"] := [270, 377]
 CoordsMap["ToggleAutoHatch"] := [1155, 395]
 CoordsMap["OpenEggSettingsExit"] := [1299, 256]
 CoordsMap["MenuExit"] := [1492, 253]
 CoordsMap["HatchAllEgg"] := [1199, 735]
-CoordsMap["BreakChest"] := [308, 578]
 CoordsMap["ReconnectButton"] := [1056, 620]
 CoordsMap["MenuButton"] := [965, 961]
 CoordsMap["BackpackButton"] := [387, 402]
@@ -96,118 +95,100 @@ CoordsMap["UseUltimate"] := [585, 957]
 CoordsMap["VoidWorld"] := [383, 587]
 CoordsMap["CraftOneKeyButton"] := [670, 739]
 CoordsMap["OkayButtonCraftKeys"] := [957, 733]
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                   Map Coordinates / Hex Codes for Fruits (Customizable)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-CoordsPixelFlag := Map()
-CoordsPixelFlag["FlagPixelSearch"] := [501, 410]
-CoordsPixelFlag["Shiny Flag"] := "0xEEEFFA"
-CoordsPixelFlag["Rainbow Flag"] := "0xFFFFFF"
-CoordsPixelFlag["Fortune Flag"] := "0xC17BF2"
-CoordsPixelFlag["Diamonds Flag"] := "0xFCFEFF"
-CoordsPixelFlag["Hasty Flag"] := "0xF5B55D"
-CoordsPixelFlag["Coins Flag"] := "0xFFFFFF"
-CoordsPixelFlag["Magnet Flag"] := "0xFCEAEA"
-CoordsPixelFlag["Strength Flag"] := "0xBB0071" 
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                    Map Coordinates / Hex Codes for Flags (Customizable)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-CoordsPixelFruit := Map()
-CoordsPixelFruit["FruitPixelSearch"] := [501, 410]
-CoordsPixelFruit["AllFruits"] := ["Apple", "Pineapple", "Banana", "Orange", "Watermelon", "Rainbow Fruit"]
-CoordsPixelFruit["Apple"] := "0xE62F2B"
-CoordsPixelFruit["Pineapple"] := "0xFF8C00"
-CoordsPixelFruit["Banana"] := "0xBFFFA8"
-CoordsPixelFruit["Orange"] := "0xF89C00"
-CoordsPixelFruit["Watermelon"] := "0xF0236E"
-CoordsPixelFruit["Rainbow Fruit"] := "0xC4EE67"
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                  Map Coordinates / Hex Codes for Other Items (Customizable)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-CoordsOtherItems := Map()
-CoordsOtherItems["CheckDisconnectUI"] := [773, 533]
-CoordsOtherItems["DisconnectUI"] := "0x393B3D" 
-CoordsOtherItems["EnableAutoFarm"] := [194, 460]
-CoordsOtherItems["AutoFarmEnabled"] := "0x7CF50C"
-CoordsOtherItems["OpenEggSettings"] := [87, 460]
-CoordsOtherItems["AutoHatchEnabled"] := "0x7CF50C"
-CoordsOtherItems["FirstItemLocation"] := [501, 410]
-CoordsOtherItems["CrystalKeyPixel"] := "0xB4E3F8"
-CoordsOtherItems["TechKeyPixel"] := "0xA0C5DD"
-CoordsOtherItems["PartyBoxPixel"] := "0x1C2D77"
-CoordsOtherItems["NoItemBackpack"] := "0xFFFFFF"
+CoordsMap["FlagPixelSearch"] := [501, 410]
+CoordsMap["FirstItemLocation"] := [501, 410]
+CoordsMap["CheckDisconnectUI"] := [773, 533]
+CoordsMap["EnableAutoFarm"] := [194, 460]
+CoordsMap["OpenEggSettings"] := [87, 460]
+CoordsMap["FruitPixelSearch"] := [501, 410]
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 ;                                                         Main GUI
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-DeepLinkRun := false
-LastFunction := ""
-LastChosenSwitch := ""
+global DeepLinkRun := false
+global LastFunction := ""
+global LastChosenSwitch := ""
+global ScreenWidth := SysGet(78)
+global ScreenHeight := SysGet(79)
 
-MyGui := Gui(, "Pet Sim 99 Macro v1.1d")
-MyGui.Opt("+AlwaysOnTop +Owner")
-MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nLast Updated on 23:24 GMT + 8, 6/5/24")
-MyGui.Add("Text",, "1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Grind Economy Mastery (Soon)`n5) Auto Craft Keys")
-MyGui.Add("Text",, "Update Logs:`n6/2/24 v1.1: Updated macro to support new areas`n6/2/24 v1.1a: Fixed Auto Craft Keys case functions`n6/2/24 v1.1b: Updated GUI to be more understandable`n6/5/24 v1.1c: Added auto launch roblox when running the macro`n6/5/24 v1.1d: Created Settings.ini file to customize settings easily")
-MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 5.")
-MyGui.Add("Edit", "vOption w270 xm")
-MyGui.Add("Button", "default x+10", "OK").OnEvent("Click", ProcessUserInput)
-MyGui.OnEvent("Close", ProcessUserInput)
-MyGui.Show("NoActivate")
-MyGui.Show
+RequirementsMacro()
+RequirementsMacro() {
+    if (ScreenWidth != 1920 or ScreenHeight != 1080) {
+        MsgBox "Your monitor's resolution is not 1920 x 1080. Exiting macro."
+        ExitApp
+    }
+    
+    if (A_ScreenDPI != 96) {
+        MsgBox "Your monitor's scale is not 100%. Exiting macro."
+        ExitApp
+    }
 
-ProcessUserInput(*) {
-    global LastChosenSwitch
-    Saved := MyGui.Submit()
-    Switch Saved.Option {
-        Case 1:
-            MsgBox("You selected Hatch & Grind. The macro will now start.")
-            LastChosenSwitch := 1
-            CheckRobloxWindow()
-            StupidLeaderboard()
-            ClaimFreeGifts()
-            AutoEatFruit()
-            GoToLastArea()
-            CheckAutoFarmCase1()
-        Case 2:
-            MsgBox("You selected Drop & Grind. The macro will now start.")
-            LastChosenSwitch := 2
-            CheckRobloxWindow()
-            StupidLeaderboard()
-            ClaimFreeGifts()
-            AutoEatFruit()
-            GoToLastArea()
-            CheckAutoFarmCase2()
-        Case 3:
-            MsgBox("You selected Grind Last Area. The macro will now start.")
-            LastChosenSwitch := 3
-            CheckRobloxWindow()
-            StupidLeaderboard()
-            ClaimFreeGifts()
-            AutoEatFruit()
-            GoToLastArea()
-            CheckAutoFarmCase3()
-        Case 4:
-            MsgBox("Waiting for more vendings to release on World 3. Exiting macro.")
-            LastChosenSwitch := 4
-            ExitApp
-        Case 5:
-            MsgBox("You selected Auto Craft Keys. The macro will now start.")
-            LastChosenSwitch := 5
-            CheckRobloxWindow()
-            StupidLeaderboard()
-            CraftCrystalKeys()
-            CraftTechKeys()
-        Default:
-            MsgBox "The selected option is not recognized. Exiting macro."
-            ExitApp
+    MyGui := Gui(, "Pet Sim 99 Macro v1.2")
+    MyGui.Opt("+AlwaysOnTop +Owner")
+    MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.")
+    MyGui.Add("Text",, "Choose an option:`n1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Auto Craft Keys`n5) Debug Mode (Get pixel hex codes)`n6) Exit Macro")
+    MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 6.")
+    MyGui.Add("Edit", "vOption w230 xm")
+    MyGui.Add("Button", "default x+10", "OK").OnEvent("Click", ProcessUserInput)
+    MyGui.OnEvent("Close", ProcessUserInput)
+    MyGui.Show("NoActivate")
+    MyGui.Show
+
+    ProcessUserInput(*) {
+        Saved := MyGui.Submit()
+        Switch Saved.Option {
+            Case 1:
+                MsgBox("You selected Hatch & Grind. The macro will now start.")
+                LastChosenSwitch := 1
+                CheckRobloxWindow()
+                StupidLeaderboard()
+                ClaimFreeGifts()
+                if (FruitMastery99 == "false") {
+                    AutoEatFruit()
+                }
+                GoToLastArea()
+                CheckAutoFarmCase1()
+            Case 2:
+                MsgBox("You selected Drop & Grind. The macro will now start.")
+                LastChosenSwitch := 2
+                CheckRobloxWindow()
+                StupidLeaderboard()
+                ClaimFreeGifts()
+                if (FruitMastery99 == "false") {
+                    AutoEatFruit()
+                }
+                GoToLastArea()
+                CheckAutoFarmCase2()
+            Case 3:
+                MsgBox("You selected Grind Last Area. The macro will now start.")
+                LastChosenSwitch := 3
+                CheckRobloxWindow()
+                StupidLeaderboard()
+                ClaimFreeGifts()
+                if (FruitMastery99 == "false") {
+                    AutoEatFruit()
+                }
+                GoToLastArea()
+                CheckAutoFarmCase3()
+            Case 4:
+                MsgBox("You selected Auto Craft Keys. The macro will now start.")
+                LastChosenSwitch := 4
+                CheckRobloxWindow()
+                StupidLeaderboard()
+                CraftCrystalKeys()
+                CraftTechKeys()
+            Case 5:
+                CheckRobloxWindow()
+                StupidLeaderboard()
+                GetPixelHexCode()
+            Case 6:
+                MsgBox "Thank you for using my macro. Have a great day!"
+                ExitApp
+            Default:
+                MsgBox "The selected option is not recognized. Exiting macro."
+                ExitApp
+        }
     }
 }
 
@@ -215,14 +196,23 @@ ProcessUserInput(*) {
 ;                                                      Main Functions
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-CheckRobloxWindow() { ; Check if the roblox window exists
-    global DelayModifier, AutoOpenRoblox, ReconnectionDelay, DeepLink, DeepLinkRun
+CheckRobloxWindow() {
+    CheckWindowSizeAndSendF11() {
+        WinActivate()
+        WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
+        if (RobloxWidth != ScreenWidth and RobloxHeight != ScreenHeight) {
+            Send "{F11}"
+        } else {
+            return
+        }
+    }
+
     if (AutoOpenRoblox == "true") {
         if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
-            WinActivate()
-            Send "{F11}"
+            CheckWindowSizeAndSendF11()
             Sleep (1000 * DelayModifier)
         } else if !(WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox")) {
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -230,8 +220,7 @@ CheckRobloxWindow() { ; Check if the roblox window exists
             DeepLinkRun := true
             Sleep (ReconnectionDelay * 1000)
             if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
-                WinActivate()
-                Send "{F11}"
+                CheckWindowSizeAndSendF11()
                 Sleep (1000 * DelayModifier)
             } else {
                 CheckRobloxWindow()
@@ -239,40 +228,37 @@ CheckRobloxWindow() { ; Check if the roblox window exists
         } 
     } else if (AutoOpenRoblox == "false") {
         if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
-            WinActivate()
-            Send "{F11}"
+            CheckWindowSizeAndSendF11()
             Sleep (1000 * DelayModifier)
         } else {
             MsgBox "Roblox is not running. Exiting script."
             ExitApp
         }
     }
-}   
+}
 
 StupidLeaderboard() {
-    global DelayModifier, DeepLinkRun
     DeepLinkRun := false
     Send "{Tab}"
     Sleep (250 * DelayModifier)
 }
 
 ClaimFreeGifts() { ; Claim free gifts when macro is starting or reconnects
-    global DelayModifier, DeepLink, DeeplinkRun
-    SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
-        Sleep (100 * DelayModifier)
-        MouseGetPos &MouseX, &MouseY
-        Activate := PixelGetColor(MouseX, MouseY, )
+    MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
+    MouseGetPos &MouseX, &MouseY
+    Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
-            if (DeepLink == "") {
-                DeepLink := "roblox://placeID=8737899170"
-            }
-                run (DeepLink)
-                DeepLinkRun := true
-                Sleep (ReconnectionDelay * 1000)
-                PostReconnectOperations()
-                return
+    if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+        global DeepLink
+        if (DeepLink == "") {
+            DeepLink := "roblox://placeID=8737899170"
         }
+            run (DeepLink)
+            DeepLinkRun := true
+            Sleep (ReconnectionDelay * 1000)
+            PostReconnectOperations()
+            return
+    }
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["OpenFreeGifts"][1] ", " CoordsMap["OpenFreeGifts"][2] "}"
     Sleep (750 * DelayModifier)
@@ -314,7 +300,6 @@ AutoEatFruit() {
 }
 
 AutoEatApple() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -327,8 +312,8 @@ AutoEatApple() {
         SendText CoordsPixelFruit["AllFruits"][1]
         Sleep (250 * DelayModifier)
 
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -355,7 +340,6 @@ AutoEatApple() {
 }
 
 AutoEatPineapple() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -368,8 +352,8 @@ AutoEatPineapple() {
         SendText CoordsPixelFruit["AllFruits"][2]
         Sleep (250 * DelayModifier)
     
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -396,7 +380,6 @@ AutoEatPineapple() {
 }
 
 AutoEatBanana() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -409,8 +392,8 @@ AutoEatBanana() {
         SendText CoordsPixelFruit["AllFruits"][3]
         Sleep (250 * DelayModifier)
     
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -437,7 +420,6 @@ AutoEatBanana() {
 }
 
 AutoEatOrange() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -450,8 +432,8 @@ AutoEatOrange() {
         SendText CoordsPixelFruit["AllFruits"][4]
         Sleep (250 * DelayModifier)
         
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -478,7 +460,6 @@ AutoEatOrange() {
 }
 
 AutoEatWatermelon() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) {
@@ -491,8 +472,8 @@ AutoEatWatermelon() {
         SendText CoordsPixelFruit["AllFruits"][5]
         Sleep (250 * DelayModifier)
     
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -519,7 +500,6 @@ AutoEatWatermelon() {
 }
 
 AutoEatRainbowFruit() {
-    global FruitLoopClick, DelayModifier
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) {
@@ -532,8 +512,8 @@ AutoEatRainbowFruit() {
         SendText CoordsPixelFruit["AllFruits"][6]
         Sleep (250 * DelayModifier)
      
-        X := CoordsPixelFruit["FruitPixelSearch"][1]
-        Y := CoordsPixelFruit["FruitPixelSearch"][2]
+        X := CoordsMap["FruitPixelSearch"][1]
+        Y := CoordsMap["FruitPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -560,7 +540,6 @@ AutoEatRainbowFruit() {
 }
 
 AutoPlaceFlag() {
-    global FlagLoopClick, DelayModifier
     consecutiveElseCount := 0
 
     while (consecutiveElseCount < 3) { 
@@ -573,14 +552,14 @@ AutoPlaceFlag() {
         SendText CoordsItemUse["FlagInLastArea"]
         Sleep (250 * DelayModifier)
 
-        X := CoordsPixelFlag["FlagPixelSearch"][1]
-        Y := CoordsPixelFlag["FlagPixelSearch"][2]
+        X := CoordsMap["FlagPixelSearch"][1]
+        Y := CoordsMap["FlagPixelSearch"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
-        if Activate == (CoordsPixelFlag["Diamonds Flag"]) { ; If flag color pixel is there
+        if Activate == (CoordsItemUse["CurrentFlagPixel"]) { ; If flag color pixel is there
             Loop FlagLoopClick {
                 SendEvent "{Click}"
                 Sleep (50 * DelayModifier)
@@ -601,23 +580,36 @@ AutoPlaceFlag() {
 }
 
 GoToLastArea() {
-    global TpToLastArea, DelayModifier, MoveLastArea
     SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
     Sleep (500 * DelayModifier)
-    SendText "Volcano Island"
+    SendText "Hacker Mainframe"
     Sleep (500 * DelayModifier)
-    SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
-    Sleep (TpToLastArea * 1000)
-    SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
-    Sleep (1000 * DelayModifier)
-    Send ("{A down}")
-    Sleep (MoveLastArea * 1000)
-    Send ("{A up}")
+
+    X := CoordsMap["TpLastAreaButton"][1]
+    Y := CoordsMap["TpLastAreaButton"][2]
+    SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
-    SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
-    Sleep (500 * DelayModifier)
+    MouseGetPos &MouseX, &MouseY
+    Activate := PixelGetColor(MouseX, MouseY, )
+
+    if (Activate == CoordsOtherItems["TeleportBgPixel"]) {
+        SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+    } else {
+        SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
+        Sleep (500 * DelayModifier)
+        SendEvent "{Click, " CoordsMap["OpenEggSettingsExit"][1] ", " CoordsMap["OpenEggSettingsExit"][2] "}"
+        Sleep (TpToLastArea * 1000)
+        SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
+        Sleep (1000 * DelayModifier)
+        Send ("{W down}")
+        Sleep (MoveLastArea * 1000)
+        Send ("{W up}")
+        Sleep (500 * DelayModifier)
+        SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
+        Sleep (500 * DelayModifier)
+    }
 }
 
 TeleportToSpawn() {
@@ -632,14 +624,13 @@ TeleportToSpawn() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase1() {
-    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsOtherItems["EnableAutoFarm"][1]
-    Y := CoordsOtherItems["EnableAutoFarm"][2]
+    X := CoordsMap["EnableAutoFarm"][1]
+    Y := CoordsMap["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
@@ -661,10 +652,8 @@ CheckAutoFarmCase1() {
 }
 
 CheckEggAutoHatch() {
-    global DelayModifier
-
-    X := CoordsOtherItems["OpenEggSettings"][1]
-    Y := CoordsOtherItems["OpenEggSettings"][2]
+    X := CoordsMap["OpenEggSettings"][1]
+    Y := CoordsMap["OpenEggSettings"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
@@ -684,23 +673,21 @@ CheckEggAutoHatch() {
 }
 
 GoToEggHatch() {
-    global TpToLastArea, DelayModifier, MoveToBestEggForward, MoveToBestEggSideward
     Send ("{I down}")
     Sleep (400)
     Send ("{I up}")
     Sleep (1000 * DelayModifier)
+    Send ("{D down}")
+    Sleep (MoveToBestEggSideward * 1000)
+    Send ("{D up}")
+    Sleep (1000 * DelayModifier)
     Send ("{W down}")
     Sleep (MoveToBestEggForward * 1000)
     Send ("{W up}")
-    Sleep (1000 * DelayModifier)
-    Send ("{A down}")
-    Sleep (MoveToBestEggSideward * 1000)
-    Send ("{A up}")
     HatchBestEgg()
 }
 
 HatchBestEgg() {
-    global DeepLink, DeepLinkRun, ReconnectionDelay, LastFunction, TimerDuration, DelayModifier, UltimateLoopClick
     LastFunction := "HatchBestEgg"
 
     Sleep (1000 * DelayModifier)
@@ -714,12 +701,12 @@ HatchBestEgg() {
         Loop UltimateLoopClick {
             SendEvent "{Click, " CoordsMap["UseUltimate"][1] ", " CoordsMap["UseUltimate"][2] "}"
         }
-        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
-        Sleep (100 * DelayModifier)
+        MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -734,7 +721,6 @@ HatchBestEgg() {
 }
 
 MoveToDisableAutoHatch() {
-    global DelayModifier, MoveDisableHatchEgg
     Send ("{S down}")
     Sleep (MoveDisableHatchEgg * 1000)
     Send ("{S up}")
@@ -742,7 +728,6 @@ MoveToDisableAutoHatch() {
 }
 
 AutoEatFruitTimerCase1() {
-    global LastFunction, DelayModifier
     Sleep (1000 * DelayModifier)
     MoveToDisableAutoHatch()
     TeleportToSpawn()
@@ -753,18 +738,17 @@ AutoEatFruitTimerCase1() {
 }
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                               Drop & Grind Functions (Case 2)
+;                                              Drop & Grind Functions (Case 2)
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase2() {
-    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsOtherItems["EnableAutoFarm"][1]
-    Y := CoordsOtherItems["EnableAutoFarm"][2]
+    X := CoordsMap["EnableAutoFarm"][1]
+    Y := CoordsMap["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
@@ -786,7 +770,6 @@ CheckAutoFarmCase2() {
 }
 
 UseItemLastArea() {
-    global DeepLink, DeepLinkRun, ReconnectionDelay, LastFunction, DelayModifier, ItemCooldown, UseItemCycles
     LastFunction := "UseItemLastArea"
     counter := 0
 
@@ -805,8 +788,8 @@ UseItemLastArea() {
             SendText CoordsItemUse["UseItem"]
             Sleep (500 * DelayModifier)
 
-            X := CoordsOtherItems["FirstItemLocation"][1]
-            Y := CoordsOtherItems["FirstItemLocation"][2]
+            X := CoordsMap["FirstItemLocation"][1]
+            Y := CoordsMap["FirstItemLocation"][2]
             SendEvent "{Click, " X ", " Y ", Right}"
             Sleep (100 * DelayModifier)
             MouseGetPos &MouseX, &MouseY
@@ -830,12 +813,12 @@ UseItemLastArea() {
             }
         }
 
-        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
-        Sleep (100 * DelayModifier)
+        MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -850,7 +833,6 @@ UseItemLastArea() {
 }
 
 AutoEatFruitTimerCase2() {
-    global LastFunction, DelayModifier
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
     if LastFunction = ("UseItemLastArea") {
@@ -864,14 +846,13 @@ AutoEatFruitTimerCase2() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase3() {
-    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
     Sleep (250 * DelayModifier)
 
-    X := CoordsOtherItems["EnableAutoFarm"][1]
-    Y := CoordsOtherItems["EnableAutoFarm"][2]
+    X := CoordsMap["EnableAutoFarm"][1]
+    Y := CoordsMap["EnableAutoFarm"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
     Sleep (500 * DelayModifier)
     MouseGetPos &MouseX, &MouseY
@@ -893,7 +874,6 @@ CheckAutoFarmCase3() {
 }
 
 UseUltimateAndReconnect() {
-    global DeepLink, DeepLinkRun, ReconnectionDelay, LastFunction, TimerDuration, DelayModifier, UltimateLoopClick
     LastFunction := "UseUltimateAndReconnect"
 
     EndTime := A_TickCount + (TimerDuration * 1000)
@@ -901,12 +881,12 @@ UseUltimateAndReconnect() {
         Loop UltimateLoopClick {
             SendEvent "{Click, " CoordsMap["UseUltimate"][1] ", " CoordsMap["UseUltimate"][2] "}"
         }
-        SendEvent "{Click, " CoordsOtherItems["CheckDisconnectUI"][1] ", " CoordsOtherItems["CheckDisconnectUI"][2] "}"
-        Sleep (100 * DelayModifier)
+        MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -921,7 +901,6 @@ UseUltimateAndReconnect() {
 }
 
 AutoEatFruitTimerCase3() {
-    global LastFunction, DelayModifier
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
     if LastFunction = ("UseUltimateAndReconnect") {
@@ -931,33 +910,22 @@ AutoEatFruitTimerCase3() {
 }
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                               Grind Economy Mastery (Case 4)
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-
-; No code as for now, because there are only 1 vending in World 3.
-; World 2 has many vendings but the exp for the mastery is too low.
-
-; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                                  Auto Craft Keys (Case 5)
+;                                                 Auto Craft Keys (Case 4)
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CraftCrystalKeys() {
-    global DelayModifier, DeepLink, DeepRun
-
     SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
     Sleep (500 * DelayModifier)
 
     while (true) {
-        X := CoordsOtherItems["CheckDisconnectUI"][1]
-        Y := CoordsOtherItems["CheckDisconnectUI"][2]
-        SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (100 * DelayModifier)
+        MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -973,8 +941,8 @@ CraftCrystalKeys() {
         SendText "Crystal Key: Upper Half"
         Sleep (250 * DelayModifier)
 
-        X := CoordsOtherItems["FirstItemLocation"][1]
-        Y := CoordsOtherItems["FirstItemLocation"][2]
+        X := CoordsMap["FirstItemLocation"][1]
+        Y := CoordsMap["FirstItemLocation"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -1004,22 +972,18 @@ CraftCrystalKeys() {
 }
 
 CraftTechKeys() {
-    global DelayModifier, DeepLink, DeepRun
-
     SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
     Sleep (500 * DelayModifier)
 
     while (true) {
-        X := CoordsOtherItems["CheckDisconnectUI"][1]
-        Y := CoordsOtherItems["CheckDisconnectUI"][2]
-        SendEvent "{Click, " X ", " Y ", Right}"
-        Sleep (100 * DelayModifier)
+        MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
         MouseGetPos &MouseX, &MouseY
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
+            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -1035,8 +999,8 @@ CraftTechKeys() {
         SendText "Tech Key: Upper Half"
         Sleep (250 * DelayModifier)
 
-        X := CoordsOtherItems["FirstItemLocation"][1]
-        Y := CoordsOtherItems["FirstItemLocation"][2]
+        X := CoordsMap["FirstItemLocation"][1]
+        Y := CoordsMap["FirstItemLocation"][2]
         SendEvent "{Click, " X ", " Y ", Right}"
         Sleep (100 * DelayModifier)
         MouseGetPos &MouseX, &MouseY
@@ -1066,33 +1030,37 @@ CraftTechKeys() {
 }
 
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                                                     Restart Functions
+;                                                    Restart Functions
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 PostReconnectOperations() {
-    global LastChosenSwitch
     Switch LastChosenSwitch {
         Case 1:
             ClaimFreeGifts()
-            AutoEatFruit()
+            if (FruitMastery99 == "false") {
+                AutoEatFruit()
+            }
             GoToLastArea()
             CheckAutoFarmCase1()
         Case 2:
             ClaimFreeGifts()
-            AutoEatFruit()
+            if (FruitMastery99 == "false") {
+                AutoEatFruit()
+            }
             GoToLastArea()
             CheckAutoFarmCase2()
         Case 3:
             ClaimFreeGifts()
-            AutoEatFruit()
+            if (FruitMastery99 == "false") {
+                AutoEatFruit()
+            }
             GoToLastArea()
             CheckAutoFarmCase3()
         Case 4:
-            ; ClaimFreeGifts()
-            ; AutoEatFruit()
-        Case 5:
             ClaimFreeGifts()
-            AutoEatFruit()
+            if (FruitMastery99 == "false") {
+                AutoEatFruit()
+            }
             CraftCrystalKeys()
             CraftTechKeys()
     }
@@ -1103,19 +1071,349 @@ PostReconnectOperations() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 PauseMacro() { ; Pause the macro
-    global DelayModifier
-    Sleep (100 * DelayModifier) 
-    Send "{F11}"
-    Pause -1
+    if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
+        WinActivate()
+        WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
+        if (RobloxWidth == ScreenWidth and RobloxHeight == ScreenHeight) {
+            Send "{F11}"
+            Pause -1
+        } else {
+            Send "{F11}"
+            Pause -1
+        }
+    }
 }
 
 ExitMacro() { ; Exit the macro
     if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
         WinActivate()
-        Send "{F11}"
-        ExitApp
+        WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
+        if (RobloxWidth == ScreenWidth and RobloxHeight == ScreenHeight) {
+            Send "{F11}"
+            ExitApp
+        } else {
+            ExitApp
+        }
     } else {
-        MsgBox "Roblox is not running. Fullscreen will not be inputted."
         ExitApp
+    }
+}
+
+; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+;                                                   Debugging Functions
+; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
+
+GetPixelHexCode() {
+    MyGui2 := Gui(, "Pet Sim 99 Macro v1.2")
+    MyGui2.Opt("+AlwaysOnTop +Owner")
+    MyGui2.Add("Text",, "Choose an option:`n1) Get Fruit Hex Code`n2) Get Flag Used in Last Area Hex Code`n3) Get Farm / Hatch Enabled Hex Code`n4) Get Crystal / Tech Key Hex Code`n5) Get Item Used in Last Area Hex Code`n6) Get Teleport Background Button Hex Code`n7) Go Back to Main Macro")
+    MyGui2.Add("Text", "xm y+10", "Please input a number from 1 to 7.")
+    MyGui2.Add("Edit", "vOption w230 xm")
+    MyGui2.Add("Button", "default x+10", "OK").OnEvent("Click", ProcessUserInput)
+    MyGui2.OnEvent("Close", ProcessUserInput)
+    MyGui2.Show("NoActivate")
+    MyGui2.Show
+
+    ProcessUserInput(*) {
+        Saved := MyGui2.Submit()
+        Switch Saved.Option {
+            Case 1:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][1]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                AppleHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][2]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                PineappleHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][3]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                BananaHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][4]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                OrangeHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][5]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                WatermelonHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsPixelFruit["AllFruits"][6]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FruitPixelSearch"][1]
+                Y := CoordsMap["FruitPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                RainbowFruitHexCode := PixelGetColor(MouseX, MouseY, )
+
+                MsgBox ("Apple Hex Code: " AppleHexCode "`nPineapple Hex Code: " PineappleHexCode "`nBanana Hex Code: " BananaHexCode "`nOrange Hex Code: " OrangeHexCode "`nWatermelon Hex Code: " WatermelonHexCode "`nRainbow Fruit Hex Code: " RainbowFruitHexCode)
+                GetPixelHexCode()
+            Case 2:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsItemUse["FlagInLastArea"]
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FlagPixelSearch"][1]
+                Y := CoordsMap["FlagPixelSearch"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                Activate := PixelGetColor(MouseX, MouseY, )
+                MouseGetPos &MouseX, &MouseY
+                FlagUsedHexCode := PixelGetColor(MouseX, MouseY, )
+
+                MsgBox ("Hex Code for used flag in Last Zone: " FlagUsedHexCode)
+                GetPixelHexCode()
+            Case 3:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                GoToLastAreaModified()
+                ZoomOut()
+
+                GoToLastAreaModified() {
+                    SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendText "Hacker Mainframe"
+                    Sleep (500 * DelayModifier)
+
+                    X := CoordsMap["TpLastAreaButton"][1]
+                    Y := CoordsMap["TpLastAreaButton"][2]
+                    SendEvent "{Click, " X ", " Y ", Right}"
+                    Sleep (500 * DelayModifier)
+                    MouseGetPos &MouseX, &MouseY
+                    Activate := PixelGetColor(MouseX, MouseY, )
+
+                    if (Activate == CoordsOtherItems["TeleportBgPixel"]) {
+                        SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                        ZoomOut()
+                    } else {
+                        SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
+                        Sleep (500 * DelayModifier)
+                        SendEvent "{Click, " CoordsMap["OpenEggSettingsExit"][1] ", " CoordsMap["OpenEggSettingsExit"][2] "}"
+                        Sleep (TpToLastArea * 1000)
+                        SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
+                        Sleep (1000 * DelayModifier)
+                        Send ("{W down}")
+                        Sleep (MoveLastArea * 1000)
+                        Send ("{W up}")
+                        Sleep (500 * DelayModifier)
+                        SendEvent "{Click, " CoordsMap["EnableHoverboard"][1] ", " CoordsMap["EnableHoverboard"][2] "}"
+                        Sleep (500 * DelayModifier)
+                        ZoomOut()
+                    }
+                }
+
+                ZoomOut() {
+                    Send ("{O down}")
+                    Sleep (3000 * DelayModifier)
+                    Send ("{O up}")
+                }
+
+                X := CoordsMap["EnableAutoFarm"][1]
+                Y := CoordsMap["EnableAutoFarm"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (500 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                Activate := PixelGetColor(MouseX, MouseY, )
+            
+                if (Activate != CoordsOtherItems["AutoFarmEnabled"]) {
+                    SendEvent "{Click}"
+                    Sleep (500 * DelayModifier)
+                }
+                MouseGetPos &MouseX, &MouseY
+                AutoFarmHexCode := PixelGetColor(MouseX, MouseY, )
+
+                X := CoordsMap["OpenEggSettings"][1]
+                Y := CoordsMap["OpenEggSettings"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (500 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                Activate := PixelGetColor(MouseX, MouseY, )
+            
+                if Activate != (CoordsOtherItems["AutoHatchEnabled"]) { ; If autohatch is enabled
+                    SendEvent "{Click}"
+                    Sleep (250 * DelayModifier)
+                    SendEvent "{Click, " CoordsMap["ToggleAutoHatch"][1] ", " CoordsMap["ToggleAutoHatch"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendEvent "{Click, " CoordsMap["OpenEggSettingsExit"][1] ", " CoordsMap["OpenEggSettingsExit"][2] "}"
+                    Sleep (250 * DelayModifier)
+                }
+                MouseGetPos &MouseX, &MouseY
+                OpenEggHexCode := PixelGetColor(MouseX, MouseY, )
+
+                MsgBox ("Auto Farm Hex Code: " AutoFarmHexCode "`nAuto Hatch Hex Code: " OpenEggHexCode)
+                GetPixelHexCode()
+            Case 4:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText "Crystal Key: Upper Half"
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FirstItemLocation"][1]
+                Y := CoordsMap["FirstItemLocation"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                CrystalKeyHexCode := PixelGetColor(MouseX, MouseY, )
+
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText "Tech Key: Upper Half"
+                Sleep (250 * DelayModifier)
+
+                X := CoordsMap["FirstItemLocation"][1]
+                Y := CoordsMap["FirstItemLocation"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                TechKeyHexCode := PixelGetColor(MouseX, MouseY, )
+
+                MsgBox ("Crystal Key Hex Code: " CrystalKeyHexCode "`nTech Key Hex Code: " TechKeyHexCode)
+                GetPixelHexCode()
+            Case 5:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText CoordsItemUse["UseItem"]
+                Sleep (500 * DelayModifier)
+
+                X := CoordsMap["FirstItemLocation"][1]
+                Y := CoordsMap["FirstItemLocation"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (100 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                ItemPixelLastArea := PixelGetColor(MouseX, MouseY, )
+                
+                MsgBox ("Last Area Item Hex Code: " ItemPixelLastArea)
+                GetPixelHexCode()
+            Case 6:
+                SendEvent "{Click, " CoordsMap["MenuExit"][1] ", " CoordsMap["MenuExit"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                Sleep (500 * DelayModifier)
+                SendText "Hacker Mainframe"
+                Sleep (500 * DelayModifier)
+
+                X := CoordsMap["TpLastAreaButton"][1]
+                Y := CoordsMap["TpLastAreaButton"][2]
+                SendEvent "{Click, " X ", " Y ", Right}"
+                Sleep (500 * DelayModifier)
+                MouseGetPos &MouseX, &MouseY
+                TpBgPixel := PixelGetColor(MouseX, MouseY, )
+
+                if (TpBgPixel == CoordsOtherItems["TeleportBgPixel"]) {
+                    MsgBox ("Teleport Current Background Hex Code: " TpBgPixel)
+                } else {
+                    SendEvent "{Click, " CoordsMap["TpLastAreaButton"][1] ", " CoordsMap["TpLastAreaButton"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendEvent "{Click, " CoordsMap["OpenEggSettingsExit"][1] ", " CoordsMap["OpenEggSettingsExit"][2] "}"
+                    Sleep (TpToLastArea * 1000)
+                    SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
+                    Sleep (500 * DelayModifier)
+                    SendText "Hacker Mainframe"
+                    Sleep (500 * DelayModifier)
+
+                    X := CoordsMap["TpLastAreaButton"][1]
+                    Y := CoordsMap["TpLastAreaButton"][2]
+                    SendEvent "{Click, " X ", " Y ", Right}"
+                    Sleep (500 * DelayModifier)
+                    MouseGetPos &MouseX, &MouseY
+                    TpBgPixel := PixelGetColor(MouseX, MouseY, )
+
+                    MsgBox ("Teleport Current Background Hex Code: " TpBgPixel)
+                }
+                GetPixelHexCode()
+            Case 7:
+                RequirementsMacro()
+                Default:
+                MsgBox "The selected option is not recognized. Exiting macro."
+                ExitApp
+        }
     }
 }
