@@ -1,6 +1,6 @@
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༺❀༻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
-;                             Pet Simulator 99 Main Macro v1.2, created by @raeleii on Discord
-;                                       Last updated on 18:52 GMT + 8, Jun 9, 2024 
+;                            Pet Simulator 99 Main Macro v1.2a, created by @raeleii on Discord
+;                                       Last updated on 22:50 GMT + 8, Jun , 2024 
 ;
 ;                                             Requirements to Use this Macro:
 ;                                           1920 x 1080 resolution, 100% scale
@@ -106,15 +106,13 @@ CoordsMap["FruitPixelSearch"] := [501, 410]
 ;                                                         Main GUI
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
-global DeepLinkRun := false
-global LastFunction := ""
-global LastChosenSwitch := ""
-global ScreenWidth := SysGet(78)
-global ScreenHeight := SysGet(79)
+DeepLinkRun := false
+LastFunction := ""
+LastChosenSwitch := ""
 
 RequirementsMacro()
 RequirementsMacro() {
-    if (ScreenWidth != 1920 or ScreenHeight != 1080) {
+    if (A_ScreenWidth != 1920 or A_ScreenHeight != 1080) {
         MsgBox "Your monitor's resolution is not 1920 x 1080. Exiting macro."
         ExitApp
     }
@@ -124,9 +122,9 @@ RequirementsMacro() {
         ExitApp
     }
 
-    MyGui := Gui(, "Pet Sim 99 Macro v1.2")
+    MyGui := Gui(, "Pet Sim 99 Macro v1.2a")
     MyGui.Opt("+AlwaysOnTop +Owner")
-    MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.")
+    MyGui.Add("Text",, "Thank you for using my macro! From @raeleii on Discord.`nPress F6 to pause macro or F12 to exit.")
     MyGui.Add("Text",, "Choose an option:`n1) Hatch and Grind`n2) Drop and Grind`n3) Grind Last Area`n4) Auto Craft Keys`n5) Debug Mode (Get pixel hex codes)`n6) Exit Macro")
     MyGui.Add("Text", "xm y+10", "Please input a number from 1 to 6.")
     MyGui.Add("Edit", "vOption w230 xm")
@@ -136,6 +134,7 @@ RequirementsMacro() {
     MyGui.Show
 
     ProcessUserInput(*) {
+        global LastChosenSwitch, FruitMastery99
         Saved := MyGui.Submit()
         Switch Saved.Option {
             Case 1:
@@ -197,10 +196,11 @@ RequirementsMacro() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckRobloxWindow() {
+    global DelayModifier, AutoOpenRoblox, DeepLink, ReconnectionDelay, DeepLinkRun
     CheckWindowSizeAndSendF11() {
         WinActivate()
         WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
-        if (RobloxWidth != ScreenWidth and RobloxHeight != ScreenHeight) {
+        if (RobloxWidth != A_ScreenWidth and RobloxHeight != A_ScreenHeight) {
             Send "{F11}"
         } else {
             return
@@ -212,7 +212,6 @@ CheckRobloxWindow() {
             CheckWindowSizeAndSendF11()
             Sleep (1000 * DelayModifier)
         } else if !(WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox")) {
-            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -238,12 +237,14 @@ CheckRobloxWindow() {
 }
 
 StupidLeaderboard() {
+    global DeepLinkRun
     DeepLinkRun := false
     Send "{Tab}"
     Sleep (250 * DelayModifier)
 }
 
 ClaimFreeGifts() { ; Claim free gifts when macro is starting or reconnects
+    global DelayModifier, DeepLink, DeepLinkRun, ReconnectionDelay
     MouseMove CoordsMap["CheckDisconnectUI"][1], CoordsMap["CheckDisconnectUI"][2], 2
     MouseGetPos &MouseX, &MouseY
     Activate := PixelGetColor(MouseX, MouseY, )
@@ -300,6 +301,7 @@ AutoEatFruit() {
 }
 
 AutoEatApple() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -340,6 +342,7 @@ AutoEatApple() {
 }
 
 AutoEatPineapple() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -380,6 +383,7 @@ AutoEatPineapple() {
 }
 
 AutoEatBanana() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -420,6 +424,7 @@ AutoEatBanana() {
 }
 
 AutoEatOrange() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) { 
@@ -460,6 +465,7 @@ AutoEatOrange() {
 }
 
 AutoEatWatermelon() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) {
@@ -500,6 +506,7 @@ AutoEatWatermelon() {
 }
 
 AutoEatRainbowFruit() {
+    global DelayModifier, FruitLoopClick
     consecutiveElseCount := 0
     
     while (consecutiveElseCount < 3) {
@@ -540,6 +547,7 @@ AutoEatRainbowFruit() {
 }
 
 AutoPlaceFlag() {
+    global DelayModifier, FlagLoopClick
     consecutiveElseCount := 0
 
     while (consecutiveElseCount < 3) { 
@@ -580,6 +588,7 @@ AutoPlaceFlag() {
 }
 
 GoToLastArea() {
+    global TpLastArea, MoveLastArea, DelayModifier
     SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["SearchWindow"][1] ", " CoordsMap["SearchWindow"][2] "}"
@@ -613,6 +622,7 @@ GoToLastArea() {
 }
 
 TeleportToSpawn() {
+    global DelayModifier, TpToLastArea
     SendEvent "{Click, " CoordsMap["TpButton"][1] ", " CoordsMap["TpButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["VoidWorld"][1] ", " CoordsMap["VoidWorld"][2] "}"
@@ -624,6 +634,7 @@ TeleportToSpawn() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase1() {
+    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
@@ -652,6 +663,7 @@ CheckAutoFarmCase1() {
 }
 
 CheckEggAutoHatch() {
+    global DelayModifier
     X := CoordsMap["OpenEggSettings"][1]
     Y := CoordsMap["OpenEggSettings"][2]
     SendEvent "{Click, " X ", " Y ", Right}"
@@ -673,6 +685,7 @@ CheckEggAutoHatch() {
 }
 
 GoToEggHatch() {
+    global DelayModifier, MoveToBestEggForward, MoveToBestEggSideward
     Send ("{I down}")
     Sleep (400)
     Send ("{I up}")
@@ -688,6 +701,7 @@ GoToEggHatch() {
 }
 
 HatchBestEgg() {
+    global LastFunction, DelayModifier, DeepLink, DeepLinkRun, UltimateLoopClick
     LastFunction := "HatchBestEgg"
 
     Sleep (1000 * DelayModifier)
@@ -706,7 +720,6 @@ HatchBestEgg() {
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
-            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -721,6 +734,7 @@ HatchBestEgg() {
 }
 
 MoveToDisableAutoHatch() {
+    global DelayModifier, MoveDisableHatchEgg
     Send ("{S down}")
     Sleep (MoveDisableHatchEgg * 1000)
     Send ("{S up}")
@@ -728,10 +742,10 @@ MoveToDisableAutoHatch() {
 }
 
 AutoEatFruitTimerCase1() {
+    global LastFunction
     Sleep (1000 * DelayModifier)
     MoveToDisableAutoHatch()
     TeleportToSpawn()
-    global LastFunction
     if LastFunction = ("HatchBestEgg") {
         LastFunction := ""
         PostReconnectOperations()
@@ -743,6 +757,7 @@ AutoEatFruitTimerCase1() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase2() {
+    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
@@ -771,6 +786,7 @@ CheckAutoFarmCase2() {
 }
 
 UseItemLastArea() {
+    global LastFunction, DelayModifier, ItemCooldown, DeepLink, DeepLinkRun, ReconnectionDelay
     LastFunction := "UseItemLastArea"
     counter := 0
 
@@ -819,7 +835,6 @@ UseItemLastArea() {
         Activate := PixelGetColor(MouseX, MouseY, )
 
         if Activate == (CoordsOtherItems["DisconnectUI"]) { ; If disconnect UI shows the color bg
-            global DeepLink
             if (DeepLink == "") {
                 DeepLink := "roblox://placeID=8737899170"
             }
@@ -834,9 +849,9 @@ UseItemLastArea() {
 }
 
 AutoEatFruitTimerCase2() {
+    global DelayModifier, LastFunction
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
-    global LastFunction
     if LastFunction = ("UseItemLastArea") {
         LastFunction := ""
         PostReconnectOperations()
@@ -848,6 +863,7 @@ AutoEatFruitTimerCase2() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CheckAutoFarmCase3() {
+    global DelayModifier
     Send ("{O down}")
     Sleep (3000 * DelayModifier)
     Send ("{O up}")
@@ -876,6 +892,7 @@ CheckAutoFarmCase3() {
 }
 
 UseUltimateAndReconnect() {
+    global LastFunction, DeepLink, DeepLinkRun, ReconnectionDelay, DelayModifier
     LastFunction := "UseUltimateAndReconnect"
 
     EndTime := A_TickCount + (TimerDuration * 1000)
@@ -903,6 +920,7 @@ UseUltimateAndReconnect() {
 }
 
 AutoEatFruitTimerCase3() {
+    global LastFunction, DelayModifier
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
     global LastFunction
@@ -917,6 +935,7 @@ AutoEatFruitTimerCase3() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 CraftCrystalKeys() {
+    global DelayModifier, DeepLink, DeepLinkRun, ReconnectionDelay
     SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
@@ -975,6 +994,7 @@ CraftCrystalKeys() {
 }
 
 CraftTechKeys() {
+    global DelayModifier, DeepLink, DeepLinkRun, ReconnectionDelay
     SendEvent "{Click, " CoordsMap["MenuButton"][1] ", " CoordsMap["MenuButton"][2] "}"
     Sleep (500 * DelayModifier)
     SendEvent "{Click, " CoordsMap["BackpackButton"][1] ", " CoordsMap["BackpackButton"][2] "}"
@@ -1037,6 +1057,7 @@ CraftTechKeys() {
 ; ≿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━༻❀༺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━≾
 
 PostReconnectOperations() {
+    global LastChosenSwitch, FruitMastery99
     Switch LastChosenSwitch {
         Case 1:
             ClaimFreeGifts()
@@ -1077,7 +1098,7 @@ PauseMacro() { ; Pause the macro
     if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
         WinActivate()
         WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
-        if (RobloxWidth == ScreenWidth and RobloxHeight == ScreenHeight) {
+        if (RobloxWidth == A_ScreenWidth and RobloxHeight == A_ScreenHeight) {
             Send "{F11}"
             Pause -1
         } else {
@@ -1091,7 +1112,7 @@ ExitMacro() { ; Exit the macro
     if WinExist("ahk_exe RobloxPlayerBeta.exe") or WinExist("ahk_title Roblox") {
         WinActivate()
         WinGetPos &X, &Y, &RobloxWidth, &RobloxHeight
-        if (RobloxWidth == ScreenWidth and RobloxHeight == ScreenHeight) {
+        if (RobloxWidth == A_ScreenWidth and RobloxHeight == A_ScreenHeight) {
             Send "{F11}"
             ExitApp
         } else {
@@ -1414,7 +1435,7 @@ GetPixelHexCode() {
                 GetPixelHexCode()
             Case 7:
                 RequirementsMacro()
-                Default:
+            Default:
                 MsgBox "The selected option is not recognized. Exiting macro."
                 ExitApp
         }
