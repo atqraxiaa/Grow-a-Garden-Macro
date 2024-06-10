@@ -731,6 +731,7 @@ AutoEatFruitTimerCase1() {
     Sleep (1000 * DelayModifier)
     MoveToDisableAutoHatch()
     TeleportToSpawn()
+    global LastFunction
     if LastFunction = ("HatchBestEgg") {
         LastFunction := ""
         PostReconnectOperations()
@@ -835,6 +836,7 @@ UseItemLastArea() {
 AutoEatFruitTimerCase2() {
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
+    global LastFunction
     if LastFunction = ("UseItemLastArea") {
         LastFunction := ""
         PostReconnectOperations()
@@ -903,6 +905,7 @@ UseUltimateAndReconnect() {
 AutoEatFruitTimerCase3() {
     Sleep (1000 * DelayModifier)
     TeleportToSpawn()
+    global LastFunction
     if LastFunction = ("UseUltimateAndReconnect") {
         LastFunction := ""
         PostReconnectOperations()
