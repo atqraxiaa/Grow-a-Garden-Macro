@@ -19,8 +19,6 @@ An AutoHotkey v2 macro designed to automate seed buying and farming tasks in Rob
 
 ## Requirements
 
-- Windows PC with **1920 x 1080** resolution.
-- Monitor scale set to **100%** (DPI 96).
 - Roblox installed and logged in.
 - AutoHotkey v2.0 installed (not needed if running with compiled exe).
 
@@ -29,7 +27,7 @@ An AutoHotkey v2 macro designed to automate seed buying and farming tasks in Rob
 ## Installation
 
 1. Clone or download this repository.
-2. Place the `Lib` and `Assets` folders in the same directory as the script.
+2. Extract the ZIP file. The Lib and Assets folders will be placed in the same directory as the script.
 3. Adjust your settings in `config.ini` as needed.
 4. Run the script `Grow a Garden Macro.ahk` with AutoHotkey v2.
 
@@ -40,11 +38,9 @@ If using the compiled version, required libraries and assets are automatically i
 ## Usage
 
 - Launch the script.
-- Go to the **Config** tab to select which seeds/fruits to buy.
-- Use the **Other** tab to configure Roblox auto-open and deeplink options.
+- Go to the **Seeds/Gears/Eggs** tab to select which seeds, gears, and eggs to buy.
 - Click **Run Macro** to start the automation.
-- Use **F5** to pause and **F6** to exit the script.
-- Watch status updates and task queue in the **Status** tab.
+- Use **F5** to pause and **F7** to exit the script.
 
 ---
 
