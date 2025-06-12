@@ -71,7 +71,8 @@ If using the compiled version, required libraries and assets are automatically i
 ## Troubleshooting
 
 - Ensure Roblox is running and logged in.
-- Verify your monitor resolution and scaling.
+- Avoid moving your mouse while the macro is running.
+- Disable Shift Lock in your Roblox window.
 - Check that all required files in `Lib` and `Assets` are present.
 - Use the **Help** tab in the GUI for guidance and links.
 - For issues, visit the GitHub repository or contact the author.
@@ -88,7 +89,7 @@ If using the compiled version, required libraries and assets are automatically i
 
 ## License
 
-This project is made with ❤️ by @vaixnae on Discord.  
+This project is made with ❤️ by @fleurcestt on Discord.  
 Feel free to use and modify for personal use. Redistribution or commercial use without permission is prohibited.
 
 ---
