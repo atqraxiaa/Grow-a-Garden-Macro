@@ -61,7 +61,6 @@ If using the compiled version, required libraries and assets are automatically i
 
 ## Known Limitations
 
-- Script only works with **1920x1080** resolution and 100% DPI scaling.
 - Mouse movement during execution can disrupt automation.
 - Requires Roblox window to be active and unobstructed.
 - OCR accuracy depends on the game’s UI clarity.
@@ -74,7 +73,6 @@ If using the compiled version, required libraries and assets are automatically i
 - Avoid moving your mouse while the macro is running.
 - Disable Shift Lock in your Roblox window.
 - Check that all required files in `Lib` and `Assets` are present.
-- Use the **Help** tab in the GUI for guidance and links.
 - For issues, visit the GitHub repository or contact the author.
 
 ---
